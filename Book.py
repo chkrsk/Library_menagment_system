@@ -1,4 +1,3 @@
-import sqlite3
 from typing import List
 
 
@@ -27,7 +26,9 @@ class Book:
 
 class Reader:
 
-    def __init__(self, name: str, surname: str, limit: int = 2) -> None:
+    def __init__(self, id: int, name: str, surname: str, 
+                 limit: int = 2) -> None:
+        self.id = id
         self.name = name
         self.surname = surname
         self.points = 0
@@ -51,3 +52,24 @@ class Reader:
                       f"you have {self.limit} books")
             else:
                 print("This book isn't available")
+
+
+class Library:
+
+    def __init__(self):
+        self._list_of_books: List[Book] = []
+        self._list_of_users: List[Reader] = []
+
+    def add_book(self, book: Book) -> None:
+        if not book in self._list_of_books:
+            self._list_of_books.append(book)
+            print(f'Book added')
+        else:
+            print(f'Book: {book.id} - {book.title} exists in library')
+
+    def add_user(self, user: Reader) -> None:
+        if not user in self._list_of_users:
+            self._list_of_users.append(user)
+        else:
+            print(f'User: {user.id} - {user.name} {user.surname} '
+                  'exists in library')
